@@ -10,6 +10,8 @@ const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = req
 const port = 2000;
 
 // create connection to database
+
+//	Option 1
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
 const db = mysql.createConnection ({
     host: 'localhost',
@@ -17,6 +19,14 @@ const db = mysql.createConnection ({
     password: '',
     database: 'test'
 });
+
+//	Option 2: multi
+var credentials = {connectionLimit: 2, // or more ... 
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'test'} ;
+
 
 // connect to database
 db.connect((err) => {
@@ -26,6 +36,10 @@ db.connect((err) => {
     console.log('Connected to database');
 });
 global.db = db;
+
+
+var pool = mysql.createPool(credentials);
+global.pool = pool;
 
 // configure middleware
 app.set('port', process.env.port || port); // set express to use this port
