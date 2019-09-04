@@ -1,20 +1,7 @@
 const fs = require('fs');
 var async = require("async");
-var credentials = {connectionLimit: 10, host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'test'} ;
 
 
-
-/*
-async.parallel([
-  function(callback) { db.query(QUERY1, callback) },
-  function(callback) { db.query(QUERY2, callback) }
-], function(err, results) {
-  res.render('template', { rows : results[0], rows2 : results[1] });
-});
-*/
 
 module.exports = {
     addPlayerPage: (req, res) => {
@@ -88,8 +75,8 @@ module.exports = {
     },
     editPlayerPage: (req, res) => {
         let playerId = req.params.id;
-        const mysql = require('mysql');
-        var pool = mysql.createPool(credentials);
+        //const mysql = require('mysql');
+       
 
         let query1 = "SELECT * FROM `players` WHERE id = '" + playerId + "' ";
         let query2 = "SELECT * FROM `states` order by name";
